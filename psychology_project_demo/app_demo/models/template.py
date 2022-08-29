@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class TemplateMail(models.Model):
     """
     Model For Problem
