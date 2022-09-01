@@ -69,9 +69,6 @@ class UserRegister(APIView):
                         sv = UserTemp.objects.get(email=request.data['email'])
                         sv.verification_code = verification_code
                         sv.save()
-
-
-
                     else:
                         serializer2 = UserTempSerializer(data={
                             'email': request.data['email'],
