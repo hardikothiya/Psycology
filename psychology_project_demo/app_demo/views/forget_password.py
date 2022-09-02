@@ -9,6 +9,7 @@ from app_demo.serializers import UserRegSerializer
 class Forget_password(APIView):
     """
     """
+
     def post(self, request):
         """
         """
@@ -44,9 +45,11 @@ class Forget_password(APIView):
             }
             return JsonResponse(errror, status=status.HTTP_200_OK)
 
+
 class check_Forget_password_verification_code(APIView):
     """
     """
+
     def post(self, request):
         print("abcdefghijklm")
         """
@@ -80,9 +83,11 @@ class check_Forget_password_verification_code(APIView):
             }
             return JsonResponse(success, status=status.HTTP_200_OK)
 
+
 class resendforgetcode(APIView):
     """
     """
+
     def post(self, request):
         userdetail = User.objects.filter(email=request.data["email"])
         if userdetail:
@@ -105,9 +110,11 @@ class resendforgetcode(APIView):
             }
             return JsonResponse(errror, status=status.HTTP_200_OK)
 
+
 class setpassword(APIView):
     """
     """
+
     def post(self, request):
         """
         """
