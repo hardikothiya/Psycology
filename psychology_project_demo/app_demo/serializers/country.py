@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from app_demo.models import country
 
+
 class CountrySerializer(serializers.ModelSerializer):
     """
     """
