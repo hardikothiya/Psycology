@@ -18,6 +18,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         self.fields["last_name"].error_messages["blank"] = u"first_name may not be Blank"
         self.fields['gender'].error_messages["blank"] = u"gender may not be Blank"
         self.fields['gender'].error_messages["required"] = u"gender may not be Blank"
-        self.fields['birthdate'].error_messages["required"] = u"gender may not be Blank"
-        self.fields['birthdate'].error_messages["blank"] = u"gender may not be Blank"
+        self.fields['age'].error_messages["required"] = u"gender may not be Blank"
+        self.fields['height'].error_messages["blank"] = u"gender may not be Blank"
+        self.fields['weight'].error_messages["required"] = u"gender may not be Blank"
 
