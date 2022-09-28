@@ -1,14 +1,25 @@
-from rest_framework.views import APIView
-
 from django.http import JsonResponse, Http404
 from rest_framework import status
 from rest_framework.views import APIView
-from app_demo.serializers import ContactUsSerializer
+from ..models import Mood as mood1
+from ..serializers import MoodSerializer
 from rest_framework.response import Response
 from .common import send_mail
 
+class Mood1(APIView):
+    def get_object(self, pk):
+        try:
+            return mood1.objects.filter(userid=1)
+        except mood1.DoesNotExist:
+            raise Http404
 
-class ContactUs(APIView):
+    def get(self, request, pk):
+        print('-----', pk)
+        snippet = self.get_object(pk)
+        serializer = MoodSerializer(snippet)
+        return Response(serializer.data)
+
+class Mood(APIView):
     """
     """
 
@@ -16,15 +27,15 @@ class ContactUs(APIView):
         """
         """
         try:
-            print('data --', request.data)
-            serializer = ContactUsSerializer(data=request.data)
-            print(serializer.is_valid())
+            print(request.data)
+            serializer = MoodSerializer(data=request.data)
             if serializer.is_valid():
+
                 serializer.save()
                 success = {
                     "status": status.HTTP_200_OK,
                     "data": serializer.data,
-                    "message": "Request submitted Successfully"
+                    "message": "Mood submitted Successfully"
                 }
                 return JsonResponse(success, status=status.HTTP_200_OK)
             else:

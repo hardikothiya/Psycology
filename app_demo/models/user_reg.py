@@ -12,7 +12,7 @@ class User(models.Model):
     )
 
     id = models.BigAutoField(primary_key=True)
-    username = models.CharField(max_length=256, default='user')
+    username = models.CharField(max_length=256, unique=True)
     password = models.CharField(max_length=1000)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)

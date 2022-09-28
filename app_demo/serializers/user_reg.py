@@ -24,7 +24,4 @@ class UserRegSerializer(serializers.ModelSerializer):
         self.fields["password"].error_messages[
             "min_length"
         ] = u"password must be at least 8 chars"
-        self.fields['age'],
-        self.field['height'],
-        self.field['weight']
 

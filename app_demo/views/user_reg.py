@@ -10,7 +10,6 @@ from .common import send_mail
 class UserGetByEmail(APIView):
     """
     """
-
     def get_object(self, pk):
         try:
             # print(User.objects.filter(id=pk))
@@ -21,6 +20,7 @@ class UserGetByEmail(APIView):
     def get(self, request, pk, format=None):
         print("ccc")
         snippet = self.get_object(pk)
+        print(snippet)
 
         serializer = UserRegSerializer(
             snippet, many=True, context={'request': request}
