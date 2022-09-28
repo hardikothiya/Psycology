@@ -27,7 +27,10 @@ class UserUpdate(APIView):
                     userdata.first_name = newdata['first_name']
                     userdata.last_name = newdata['last_name']
                     userdata.gender = newdata['gender']
-                    userdata.birthdate = newdata['birthdate']
+                    userdata.age = newdata['age']
+                    userdata.weight = newdata['wight']
+                    userdata.height = newdata['height']
+
                     userdata.save()
                     success = {
                         "status": status.HTTP_200_OK,

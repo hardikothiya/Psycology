@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from app_demo.models import country
+# from app_demo.models import country
+from ..models import country
 
 
 class CountrySerializer(serializers.ModelSerializer):

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from app_demo.models import User
+# from app_demo.models import User
+from ..models import User
 
 
 class UserRegSerializer(serializers.ModelSerializer):
@@ -23,3 +24,7 @@ class UserRegSerializer(serializers.ModelSerializer):
         self.fields["password"].error_messages[
             "min_length"
         ] = u"password must be at least 8 chars"
+        self.fields['age'],
+        self.field['height'],
+        self.field['weight']
+

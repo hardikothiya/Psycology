@@ -11,4 +11,5 @@ urlpatterns = [
     url('verificationcode', views.check_Forget_password_verification_code.as_view()),
     url('resendforgetcode', views.resendforgetcode.as_view()),
     url('validateuser', views.check_user_reg_verification_code.as_view()),
+    url('contactus', views.ContactUs.as_view()),
 ]
