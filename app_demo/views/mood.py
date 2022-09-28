@@ -13,10 +13,12 @@ class Mood1(APIView):
         except mood1.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
+    def get(self, request, pk, ):
         print('-----', pk)
         snippet = self.get_object(pk)
-        serializer = MoodSerializer(snippet)
+        serializer = MoodSerializer(
+            snippet, many=True, context={'request': request}
+        )
         return Response(serializer.data)
 
 class Mood(APIView):
