@@ -19,7 +19,7 @@ class Mood(models.Model):
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.userid
+        return self.userid.username
 
     class Meta:
         db_table = "mood_table"
