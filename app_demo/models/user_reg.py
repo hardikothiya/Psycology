@@ -11,7 +11,6 @@ class User(models.Model):
         ('u', 'Prefer Not To Say'),
     )
 
-
     id = models.BigAutoField(primary_key=True)
     username = models.CharField(max_length=256, unique=True)
     password = models.CharField(max_length=1000)
