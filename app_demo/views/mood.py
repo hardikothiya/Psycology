@@ -14,12 +14,12 @@ class Mood1(APIView):
             raise Http404
 
     def get(self, request, pk, ):
-        print('-----', pk)
         snippet = self.get_object(pk)
         serializer = MoodSerializer(
             snippet, many=True, context={'request': request}
         )
         return Response(serializer.data)
+
 
 class Mood(APIView):
     """
@@ -41,7 +41,6 @@ class Mood(APIView):
                 }
                 return JsonResponse(success, status=status.HTTP_200_OK)
             else:
-                print('serializer.errors')
                 error = {
                     "status": status.HTTP_400_BAD_REQUEST,
                     "message": serializer.errors

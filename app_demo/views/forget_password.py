@@ -22,6 +22,7 @@ class Forget_password(APIView):
                 for i in serializer.data:
                     userid = i['id']
                     verifycode = random.randrange(111111, 999999, 6)
+                    print(verifycode)
                     userdata = User.objects.get(email=request.data["email"], id=userid)
                     userdata.verification_code = verifycode
                     userdata.save()
@@ -55,13 +56,23 @@ class check_Forget_password_verification_code(APIView):
         """
         """
         userdetail = User.objects.filter(email=request.data["email"])
-        print(userdetail)
         if userdetail:
             serializer = UserRegSerializer(
                 userdetail, many=True, context={'request': request}
             )
             for i in serializer.data:
                 if int(request.data["verification_code"]) == int(i['verification_code']):
+                    userdetail = User.objects.get(email=request.data["email"])
+                    userdetail.password = str(request.data["password"])
+                    userdetail.save()
+                    success = {
+                        "status": status.HTTP_200_OK,
+                        "message": "Password change Successfully",
+                        "msgcode": "Success"
+                    }
+                    return JsonResponse(success, status=status.HTTP_200_OK)
+
+
                     success = {
                         "status": status.HTTP_200_OK,
                         "message": "Verify Successfully"
@@ -121,22 +132,15 @@ class setpassword(APIView):
         try:
             userdetail = User.objects.get(email=request.data["email"])
             if userdetail:
-                if str(request.data["password"]) == str(request.data["password2"]):
-                    userdetail.password = str(request.data["password"])
-                    userdetail.save()
-                    success = {
-                        "status": status.HTTP_200_OK,
-                        "message": "Password change Successfully",
-                        "msgcode": "Success"
-                    }
-                    return JsonResponse(success, status=status.HTTP_200_OK)
-                else:
-                    errror = {
-                        "status": status.HTTP_400_BAD_REQUEST,
-                        "message": "Passsword Mismatch",
-                        "msgcode": "Fail"
-                    }
-                    return JsonResponse(errror, status=status.HTTP_200_OK)
+                userdetail.password = str(request.data["password"])
+                userdetail.save()
+                success = {
+                    "status": status.HTTP_200_OK,
+                    "message": "Password change Successfully",
+                    "msgcode": "Success"
+                }
+                return JsonResponse(success, status=status.HTTP_200_OK)
+
             else:
                 errror = {
                     "status": status.HTTP_400_BAD_REQUEST,

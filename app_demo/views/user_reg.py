@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .common import send_mail
 
 
-class UserGetByEmail(APIView):
+class GetUserById(APIView):
     """
     """
     def get_object(self, pk):
@@ -55,44 +55,37 @@ class UserRegister(APIView):
         """
         """
         try:
-            if request.data["password"] == request.data["password2"]:
 
-                serializer = UserRegSerializer(data=request.data)
+            serializer = UserRegSerializer(data=request.data)
 
-                if serializer.is_valid():
-                    verification_code = send_mail(request.data['email'])
-                    # verification_code = 121252
-                    request.data['verification_code'] = verification_code
+            if serializer.is_valid():
+                # verification_code = send_mail(request.data['email'])
+                verification_code = 121252
+                request.data['verification_code'] = verification_code
 
-                    userdetail = UserTemp.objects.filter(email=request.data["email"])
-                    if userdetail:
-                        sv = UserTemp.objects.get(email=request.data['email'])
-                        sv.verification_code = verification_code
-                        sv.save()
-                    else:
-                        serializer2 = UserTempSerializer(data={
-                            'email': request.data['email'],
-                            'verification_code': verification_code
-                        })
-
-                        if serializer2.is_valid():
-                            serializer2.save()
-                    success = {
-                        "status": status.HTTP_200_OK,
-                        "message": "User OTP saved Successfully"
-                    }
-
-                    return JsonResponse(success, status=status.HTTP_200_OK)
+                userdetail = UserTemp.objects.filter(email=request.data["email"])
+                if userdetail:
+                    sv = UserTemp.objects.get(email=request.data['email'])
+                    sv.verification_code = verification_code
+                    sv.save()
                 else:
-                    error = {
-                        "status": status.HTTP_400_BAD_REQUEST,
-                        "message": serializer.errors
-                    }
-                    return JsonResponse(error, status=status.HTTP_400_BAD_REQUEST)
+                    serializer2 = UserTempSerializer(data={
+                        'email': request.data['email'],
+                        'verification_code': verification_code
+                    })
+
+                    if serializer2.is_valid():
+                        serializer2.save()
+                success = {
+                    "status": status.HTTP_200_OK,
+                    "message": "OTP Sent Successfully"
+                }
+
+                return JsonResponse(success, status=status.HTTP_200_OK)
             else:
                 error = {
                     "status": status.HTTP_400_BAD_REQUEST,
-                    "message": "Password Not Match"
+                    "message": serializer.errors
                 }
                 return JsonResponse(error, status=status.HTTP_400_BAD_REQUEST)
 
@@ -127,6 +120,7 @@ class check_user_reg_verification_code(APIView):
                         serializer.save()
                         success = {
                             "status": status.HTTP_200_OK,
+                            "data" : serializer.data,
                             "message": "Verify Successfully"
                         }
                         return JsonResponse(success, status=status.HTTP_200_OK)
