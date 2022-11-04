@@ -6,10 +6,11 @@ from ..serializers import MoodSerializer
 from rest_framework.response import Response
 from .common import send_mail
 
+
 class Mood1(APIView):
     def get_object(self, pk):
         try:
-            return mood1.objects.filter(userid=1)
+            return mood1.objects.filter(userid=pk)
         except mood1.DoesNotExist:
             raise Http404
 
@@ -29,7 +30,6 @@ class Mood(APIView):
         """
         """
         try:
-            print(request.data)
             serializer = MoodSerializer(data=request.data)
             if serializer.is_valid():
 
