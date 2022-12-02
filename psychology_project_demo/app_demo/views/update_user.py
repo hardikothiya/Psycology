@@ -34,7 +34,6 @@ class UserUpdate(APIView):
                     userdata.save()
                     success = {
                         "status": status.HTTP_200_OK,
-                        "data": serializer.data,
                         "message": "User Data Updated Successfully"
                     }
                     return JsonResponse(success, status=status.HTTP_200_OK)

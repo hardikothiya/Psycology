@@ -17,3 +17,5 @@ def send_mail(email):
     s.login("hardikothiya01@gmail.com", "deitthyzmsevjwtt")
     s.sendmail('hardikothiya01@gmail.com', email, msg)
     return int(OTP)
+
+
